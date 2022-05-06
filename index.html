@@ -33,7 +33,69 @@
 
   </div>
 
-  <script src="app.js"></script>
+  <script>
+    const quiz = [
+  {
+    question : '好きな食べ物は何ですか？',
+    answers : ['ピザ', '牛乳', 'ショートケーキ',　'羊羹'],
+    correct:'ピザ'
+  }, {
+    question : '好きな人は誰ですか？',
+    answers : ['松田迅', '鶴房汐恩', '川西拓実',　'西洸人'],
+    correct:'松田迅'
+  }, {
+    question : '好きなファミレスはどこですか？',
+    answers : ['ガスト', 'ココス', 'サイゼ',　'ロイホ'],
+    correct:'サイゼ'
+  }
+];
+ 
+const quizLength= quiz.length;
+let quizIndex = 0;
+let score = 0;
+
+const $button = document.getElementsByTagName('button');
+const buttonLength = $button.length;
+
+//クイズの問題文、選択肢を定義
+const setupQuiz = () => {
+  document.getElementById('js-question').textContent = quiz[quizIndex].question;
+  let buttonIndex = 0;
+  while(buttonIndex < buttonLength){
+    $button[buttonIndex].textContent= quiz[quizIndex].answers[buttonIndex];
+    buttonIndex++;
+  }
+}
+setupQuiz();
+
+const clickHandler = (e) => {
+  if(quiz[quizIndex].correct === e.target.textContent){
+    window.alert('正解！');
+    score++;
+  }else{
+    window.alert('はずれ！');
+  }
+
+  quizIndex++;
+
+  if(quizIndex < quizLength){
+    setupQuiz();
+
+  }else{
+    window.alert('終了！あなたの正解数は' + score + '/' + quizLength +'です☺');
+  }
+};
+
+//クリックしたら正誤判定
+let handlerIndex = 0;
+while(handlerIndex < buttonLength){
+  $button[handlerIndex].addEventListener('click',(e)=>{
+    clickHandler(e);
+  });
+  handlerIndex++;
+}
+
+  </script>
   
 </body>
 
